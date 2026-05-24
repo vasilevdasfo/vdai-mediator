@@ -226,10 +226,10 @@ h2.title{margin-top:8px;font-size:clamp(30px,5vw,58px);line-height:.98;text-tran
             <option>Мягкий отказ</option>
             <option>Медиация через Дмитрия/VDAI</option>
           </select>
-          <button class="btn" type="button" onclick="compose()">Собрать текст</button>
+          <button class="btn" type="button" id="composeBtn">Собрать текст</button>
           <div class="result" id="result">Здесь появится структурированный запрос.</div>
           <div class="actions">
-            <button class="btn alt" type="button" onclick="copyText()">Скопировать</button>
+            <button class="btn alt" type="button" id="copyTextBtn">Скопировать</button>
             <a class="btn" href="https://t.me/vdavc_bot?start=mediator">Открыть Telegram</a>
           </div>
         </form>
@@ -336,6 +336,13 @@ async function copyText(){
     document.getElementById('result').textContent = text + '\n\nСкопируйте вручную.';
   }
 }
+[
+  ['composeBtn', compose],
+  ['copyTextBtn', copyText]
+].forEach(function(pair){
+  var button = document.getElementById(pair[0]);
+  if(button) button.addEventListener('click', pair[1]);
+});
 </script>
 </body>
 </html>
