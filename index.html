@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VDAI Mediator — нейтральный разбор коммуникации</title>
+<meta name="description" content="VDAI Mediator помогает перевести сложную коммуникацию в факты, правила, сроки, шаблон ответа и понятный следующий шаг.">
+<meta property="og:title" content="VDAI Mediator">
+<meta property="og:description" content="Опишите ситуацию. Мы отделим факты от эмоций и соберём нейтральный сценарий взаимодействия.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mediator.vdai.me/">
+<link rel="canonical" href="https://mediator.vdai.me/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f4f0;
+  --card:#fffefa;
+  --ink:#171717;
+  --muted:#60635f;
+  --line:#d8d5cc;
+  --green:#0f766e;
+  --blue:#255f9b;
+  --red:#c63d2f;
+  --soft:#e8f3f1;
+  --warn:#fff2df;
+  --shadow:0 18px 60px rgba(10,10,10,.1);
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{
+  min-width:320px;
+  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.66;
+}
+.wrap{width:min(1080px,calc(100% - 40px));margin:0 auto}
+.nav{
+  position:sticky;
+  top:0;
+  z-index:10;
+  min-height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:0 22px;
+  background:rgba(245,244,240,.94);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(12px);
+}
+.logo{font-weight:900;text-decoration:none;white-space:nowrap}
+.nav a:not(.logo){font-size:12px;font-weight:800;color:var(--muted);text-decoration:none;text-transform:uppercase}
+.nav-links{display:flex;gap:16px}
+.hero{
+  padding:82px 0 70px;
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(340px,.95fr);
+  gap:32px;
+  align-items:center;
+}
+.tag{
+  width:max-content;
+  max-width:100%;
+  padding:7px 11px;
+  border:1px solid var(--green);
+  border-radius:8px;
+  background:var(--soft);
+  color:var(--green);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+h1{
+  max-width:760px;
+  margin-top:20px;
+  font-size:clamp(42px,7vw,88px);
+  line-height:.94;
+  letter-spacing:0;
+  text-transform:uppercase;
+}
+.lead{
+  max-width:720px;
+  margin-top:22px;
+  color:#2d2f2c;
+  font-size:clamp(18px,2vw,22px);
+  line-height:1.58;
+}
+.panel{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+  box-shadow:var(--shadow);
+  padding:22px;
+}
+.panel h2,.card h3{font-size:22px;line-height:1.2;margin-bottom:10px}
+.form{display:grid;gap:12px;margin-top:14px}
+label{font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase}
+textarea,input,select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  color:var(--ink);
+  padding:13px;
+}
+textarea{min-height:126px;resize:vertical}
+.btn{
+  min-height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 18px;
+  border:1px solid var(--ink);
+  border-radius:8px;
+  background:var(--ink);
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+  text-decoration:none;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.btn.alt{background:#fff;color:var(--ink)}
+.result{
+  min-height:96px;
+  padding:14px;
+  border:1px dashed var(--line);
+  border-radius:8px;
+  background:#fff;
+  color:#30322f;
+  font-size:14px;
+  white-space:pre-wrap;
+}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+section{padding:64px 0;border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:22px}
+.label{color:var(--green);font-size:12px;font-weight:900;text-transform:uppercase}
+h2.title{margin-top:8px;font-size:clamp(30px,5vw,58px);line-height:.98;text-transform:uppercase}
+.note{max-width:430px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.card{
+  min-width:0;
+  padding:20px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--card);
+}
+.card.green{background:var(--soft);border-color:#99c7bf}
+.card.warn{background:var(--warn);border-color:#e3c28b}
+.card.blue{background:#e9f2fb;border-color:#aac5df}
+.card p,.card li{color:#343633;font-size:15px}
+.card ul{padding-left:18px;display:grid;gap:7px}
+.script{
+  padding:20px;
+  border:1px solid var(--ink);
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+}
+.script p{margin-top:8px;color:#f2f2f2}
+.footer{padding:42px 0;background:#111;color:#fff}
+.footer .wrap{display:flex;justify-content:space-between;gap:20px}
+.footer a{color:#fff}
+.small{font-size:13px;color:var(--muted)}
+.footer .small{color:#cfcfcf}
+@media(max-width:900px){
+  .hero-grid,.grid{grid-template-columns:1fr}
+  .top{display:block}
+  .note{margin-top:10px}
+  .nav-links{display:none}
+}
+@media(max-width:560px){
+  .wrap{width:min(100% - 28px,1080px)}
+  .nav{padding:0 14px}
+  .hero{padding:54px 0}
+  h1{font-size:clamp(40px,14vw,66px)}
+  .panel,.card{padding:17px}
+  .actions{display:grid;grid-template-columns:1fr}
+  .btn{width:100%}
+  .footer .wrap{display:block}
+  .footer .small{margin-top:12px}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="logo" href="/">VDAI Mediator</a>
+  <nav class="nav-links" aria-label="Навигация">
+    <a href="#how">Как работает</a>
+    <a href="#script">Что отправить</a>
+    <a href="#rules">Правила</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="tag">Нейтральный вход для сложной коммуникации</div>
+        <h1>Опишите ситуацию. Мы превратим хаос в правила.</h1>
+        <p class="lead">VDAI Mediator помогает спокойно разобрать конфликт, спор, сорванные договорённости или сложного собеседника: отделить факты от эмоций, собрать условия и подготовить текст без лишнего давления.</p>
+      </div>
+      <div class="panel" id="intake">
+        <h2>Собрать запрос</h2>
+        <p class="small">Форма ничего не отправляет автоматически. Она помогает подготовить аккуратный текст для Telegram или личного медиатора.</p>
+        <form class="form" onsubmit="return false">
+          <label for="who">Кто участвует</label>
+          <input id="who" placeholder="Клиент, подрядчик, партнёр, сосед, команда">
+          <label for="situation">Что произошло</label>
+          <textarea id="situation" placeholder="Факты, обещания, сроки, деньги, где начался конфликт"></textarea>
+          <label for="goal">Что нужно получить</label>
+          <select id="goal">
+            <option>Нейтральный ответ второй стороне</option>
+            <option>Правила дальнейшей коммуникации</option>
+            <option>Шаблон договора или оферты</option>
+            <option>Мягкий отказ</option>
+            <option>Медиация через Дмитрия/VDAI</option>
+          </select>
+          <button class="btn" type="button" onclick="compose()">Собрать текст</button>
+          <div class="result" id="result">Здесь появится структурированный запрос.</div>
+          <div class="actions">
+            <button class="btn alt" type="button" onclick="copyText()">Скопировать</button>
+            <a class="btn" href="https://t.me/vdavc_bot?start=mediator">Открыть Telegram</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="label">Как работает</div>
+          <h2 class="title">Сначала структура, потом контакт</h2>
+        </div>
+        <p class="note">Человек не получает прямой доступ к вашему времени, пока ситуация не стала понятной.</p>
+      </div>
+      <div class="grid">
+        <article class="card green">
+          <h3>Факты</h3>
+          <p>Фиксируем участников, обещания, деньги, сроки, скрины, документы и реальный предмет спора.</p>
+        </article>
+        <article class="card blue">
+          <h3>Правила</h3>
+          <p>Определяем формат: кто отвечает, где фиксируем договорённости, что считается результатом, где стоп.</p>
+        </article>
+        <article class="card warn">
+          <h3>Текст</h3>
+          <p>Готовим сообщение, которое можно отправить без агрессии: спокойно, по делу, с понятным следующим шагом.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="script">
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="label">Готовый текст</div>
+          <h2 class="title">Что отправить человеку</h2>
+        </div>
+      </div>
+      <div class="script">
+        <strong>Вариант сообщения:</strong>
+        <p>Давай не будем продолжать это в хаотичном чате. Я хочу зафиксировать факты, условия и следующий шаг. Опиши ситуацию здесь: что обещали, какие сроки/деньги, где спор и какой результат нужен. После этого соберём нейтральный вариант решения.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="rules">
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="label">Границы</div>
+          <h2 class="title">Что это не делает</h2>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>Не суд</h3>
+          <p>Мы не выносим юридическое решение. Мы структурируем коммуникацию и помогаем подготовить следующий ход.</p>
+        </article>
+        <article class="card">
+          <h3>Не терапия</h3>
+          <p>Если конфликт про эмоции, мы всё равно переводим его в правила: что можно обсуждать, где пауза, где стоп.</p>
+        </article>
+        <article class="card">
+          <h3>Не давление</h3>
+          <p>Цель не “победить” собеседника, а убрать шум и оставить только проверяемые условия.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div><strong>VDAI Mediator</strong><br>AI, шаблоны и посредник для нормального взаимодействия.</div>
+    <div class="small">Связано с проектом dolboebam.net как нейтральная клиентская страница.</div>
+  </div>
+</footer>
+
+<script>
+function compose(){
+  var who = document.getElementById('who').value.trim();
+  var situation = document.getElementById('situation').value.trim();
+  var goal = document.getElementById('goal').value;
+  var text = [
+    'Запрос в VDAI Mediator',
+    '',
+    'Участники: ' + (who || '[указать участников]'),
+    'Ситуация: ' + (situation || '[описать факты, сроки, деньги, обещания]'),
+    'Нужный результат: ' + goal,
+    '',
+    'Пожалуйста, отделите факты от эмоций, предложите правила дальнейшей коммуникации и подготовьте нейтральный текст второй стороне.'
+  ].join('\n');
+  document.getElementById('result').textContent = text;
+}
+async function copyText(){
+  var text = document.getElementById('result').textContent;
+  try{
+    await navigator.clipboard.writeText(text);
+    document.getElementById('result').textContent = text + '\n\nСкопировано.';
+  }catch(e){
+    document.getElementById('result').textContent = text + '\n\nСкопируйте вручную.';
+  }
+}
+</script>
+</body>
+</html>
