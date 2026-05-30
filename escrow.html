@@ -231,10 +231,14 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
 <section id="waitlist"><div class="wrap" style="text-align:center;max-width:600px">
   <h2><span class="ru">В лист ожидания — запустить сделку</span><span class="en">Join the waitlist — run a deal</span></h2>
   <p class="lead" style="margin:10px auto 18px"><span class="ru">Опишите сделку — соберём защищённый escrow под неё. Первые сделки ведём лично.</span><span class="en">Describe the deal — we'll set up a protected escrow for it. First deals handled personally.</span></p>
-  <form onsubmit="return sendDeal(event)" style="display:grid;gap:10px;text-align:left">
-    <input id="f_name" required style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
-    <input id="f_contact" required style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
-    <input id="f_deal" style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
+  <form action="https://formsubmit.co/dima@vda.vc" method="POST" style="display:grid;gap:10px;text-align:left">
+    <input type="hidden" name="_subject" value="Новая заявка — AI Escrow / New escrow request">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" value="https://mediator.vdai.me/escrow.html#waitlist">
+    <input id="f_name" name="Имя" required style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
+    <input id="f_contact" name="Контакт" required style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
+    <input id="f_deal" name="Сделка" style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
     <button class="btn p" type="submit"><span class="ru">В лист ожидания</span><span class="en">Join the waitlist</span></button>
   </form>
   <p style="color:var(--mut);font-size:13px;margin-top:16px"><span class="ru">Гарант — <b>Дмитрий</b>: 10+ лет в крипто-расчётах и кросс-бордере, экс-CEO криптобиржи. Имя и репутация — то, чего безликий сервис дать не может.</span><span class="en">Guarantor — <b>Dmitrii</b>: 10+ years in crypto settlements & cross-border, ex-crypto-exchange CEO. Name and reputation — what a faceless service can't offer.</span></p>
