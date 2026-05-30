@@ -34,7 +34,7 @@ h1 .g{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-backgroun
 .btn.p{background:linear-gradient(90deg,var(--acc),#2b7fd4);color:#06121f;border:none}
 .btn.s{background:var(--panel);color:var(--txt)}
 /* sections */
-section{padding:44px 0;border-top:1px solid var(--line)}
+section{padding:44px 0;border-top:1px solid var(--line);scroll-margin-top:70px}
 h2{font-size:clamp(22px,3.4vw,30px);font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
 .lead{color:var(--mut);max-width:680px;margin-bottom:26px}
 /* stat band */
@@ -81,13 +81,14 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
   .grid2{grid-template-columns:1fr}
   table{font-size:13px}
   th,td{padding:9px 10px}
+  .brand{font-size:13px}
 }
 </style>
 </head>
 <body class="lang-ru">
 
 <div class="top"><div class="wrap">
-  <div class="brand">vda<b>.vc</b> · <span class="ru">AI-Гарант сделок</span><span class="en">AI Deal Escrow</span></div>
+  <div class="brand">vda<b>.vc</b> · <span class="ru">AI-Гарант сделок</span><span class="en">AI Escrow</span></div>
   <div class="lang">
     <button id="bru" class="on" onclick="setLang('ru')">RU</button>
     <button id="ben" onclick="setLang('en')">EN</button>
@@ -101,8 +102,8 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
     <span class="en">Who pays <span class="g">first</span>? Now — nobody takes the risk.</span>
   </h1>
   <p class="sub">
-    <span class="ru">AI-escrow держит деньги и расщепляет сделку на этапы, пока стороны не доверяют друг другу. 95% сделок проходят сами — как в приложении такси. Сложное и спорное берёт на себя именной гарант.</span>
-    <span class="en">AI-escrow holds the funds and splits the deal into milestones while the parties don't trust each other yet. 95% of deals run themselves — like a ride-hailing app. The hard and disputed 5% is handled by a named guarantor.</span>
+    <span class="ru">AI-escrow держит деньги и расщепляет сделку на этапы, пока стороны не доверяют друг другу. До 95% сделок проходят сами — как в приложении такси. Сложное и спорное берёт на себя именной гарант.</span>
+    <span class="en">AI-escrow holds the funds and splits the deal into milestones while the parties don't trust each other yet. Up to 95% of deals run themselves — like a ride-hailing app. The hard and disputed 5% is handled by a named guarantor.</span>
   </p>
   <div class="cta">
     <a class="btn p" href="#waitlist"><span class="ru">В лист ожидания</span><span class="en">Join the waitlist</span></a>
@@ -117,7 +118,7 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
   <div class="stats">
     <div class="stat"><div class="n">~6%</div><div class="l"><span class="ru">покупателей вообще когда-либо платили через escrow — гигантский разрыв</span><span class="en">of buyers have ever used escrow — a huge adoption gap</span></div></div>
     <div class="stat"><div class="n">$2.8B</div><div class="l"><span class="ru">потерь от платёжного фрода (BEC) за 2024 — ФБР IC3</span><span class="en">lost to payment (BEC) fraud in 2024 — FBI IC3</span></div></div>
-    <div class="stat"><div class="n">89%</div><div class="l"><span class="ru">China-скамов требуют оплату ВНЕ любого защищённого рельса</span><span class="en">of China scams demand payment OUTSIDE any protected rail</span></div></div>
+    <div class="stat"><div class="n">89%</div><div class="l"><span class="ru">мошеннических схем из Китая требуют оплату ВНЕ защищённого рельса</span><span class="en">of China-sourced scams demand payment OUTSIDE any protected rail</span></div></div>
     <div class="stat"><div class="n">&gt;50%</div><div class="l"><span class="ru">фрилансеров хоть раз не получили оплату за работу</span><span class="en">of freelancers have been stiffed at least once</span></div></div>
   </div>
   <p class="lead" style="margin-top:22px">
@@ -157,8 +158,28 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
     <tr><td><b>Pro</b></td><td>$25k+</td><td class="price">1.0% (min $250)</td></tr>
     <tr><td><b>Concierge</b><br><span class="tag"><span class="ru">именной гарант</span><span class="en">named guarantor</span></span></td><td><span class="ru">сложные, низкое доверие</span><span class="en">complex, low-trust</span></td><td class="price">+1–2%</td></tr>
     <tr><td><b>Subscription</b></td><td><span class="ru">повторяющиеся (агентства, импортёры)</span><span class="en">recurring (agencies, importers)</span></td><td class="price">$99 / <span class="ru">мес</span><span class="en">mo</span></td></tr>
+    <tr><td><b><span class="ru">Скидка за стейбл</span><span class="en">Stablecoin discount</span></b></td><td><span class="ru">оплата в USDC / крипте</span><span class="en">paying in USDC / crypto</span></td><td class="price">−0.5…1%</td></tr>
+    <tr><td><b><span class="ru">Арбитраж</span><span class="en">Arbitration</span></b><br><span class="tag"><span class="ru">опция</span><span class="en">optional</span></span></td><td><span class="ru">только если возник спор</span><span class="en">only if a dispute arises</span></td><td class="price"><span class="ru">отдельно</span><span class="en">add-on</span></td></tr>
   </table>
-  <p class="lead" style="margin-top:14px;font-size:13.5px"><span class="ru">Рынок берёт 0.89–3.25% и до 5%/сторона (Upwork). Наш диапазон 1–3% + флэт на мелочь — дешевле и прозрачнее.</span><span class="en">The market charges 0.89–3.25% and up to 5%/side (Upwork). Our 1–3% + flat-for-small is cheaper and clearer.</span></p>
+  <p class="lead" style="margin-top:14px;font-size:13.5px"><span class="ru">Цена зависит от способа оплаты: <b>стейбл/крипта и банк — дешевле, карта — дороже</b> (там комиссия 3.8% + риск chargeback). Арбитраж не зашит в тариф — платишь, только если реально спор. Рынок берёт 0.89–3.25% и до 5%/сторона (Upwork); наш диапазон 1–3% + флэт на мелочь — дешевле и прозрачнее.</span><span class="en">Price depends on payment method: <b>stablecoin/crypto and bank are cheaper, card is more expensive</b> (3.8% fee + chargeback risk). Arbitration isn't baked into the tariff — you pay only if a dispute actually happens. The market charges 0.89–3.25% and up to 5%/side (Upwork); our 1–3% + flat-for-small is cheaper and clearer.</span></p>
+</div></section>
+
+<!-- COMPETITORS + ECONOMICS -->
+<section id="market"><div class="wrap">
+  <h2><span class="ru">Конкуренты — и почему мы дешевле</span><span class="en">Competitors — and why we're cheaper</span></h2>
+  <p class="lead"><span class="ru">Инкумбенты старые, дорогие и закрыты для многих рынков.</span><span class="en">Incumbents are old, expensive and closed to many markets.</span></p>
+  <table>
+    <tr><th><span class="ru">Сервис</span><span class="en">Service</span></th><th><span class="ru">Что это</span><span class="en">What</span></th><th><span class="ru">Комиссия</span><span class="en">Fee</span></th><th><span class="ru">Слабость</span><span class="en">Weakness</span></th></tr>
+    <tr><td><b>Escrow.com</b></td><td><span class="ru">онлайн-эскроу (домены); куплен Freelancer.com за $7.5M (2015); $8B оборота; <b>~42 лицензии по штатам США</b></span><span class="en">online escrow (domains); bought by Freelancer.com for $7.5M (2015); $8B volume; <b>~42 US-state licenses</b></span></td><td class="price">2.6%→0.7% +3.05% <span class="ru">карта</span><span class="en">card</span></td><td><span class="ru">RU исключён, нет крипты, деньги виснут неделями (2.9★)</span><span class="en">RU excluded, no crypto, funds frozen for weeks (2.9★)</span></td></tr>
+    <tr><td><b>Tazapay</b></td><td><span class="ru">cross-border B2B</span><span class="en">cross-border B2B</span></td><td class="price">0.8–2.5% / <span class="ru">карта</span><span class="en">card</span> 3.8%</td><td><span class="ru">RU+Беларусь запрещены, FX скрытый</span><span class="en">RU+Belarus banned, hidden FX</span></td></tr>
+    <tr><td><b>Shieldpay</b></td><td><span class="ru">FCA, крупные M&amp;A</span><span class="en">FCA, large M&amp;A</span></td><td class="price">bespoke</td><td><span class="ru">дорого, недели на открытие</span><span class="en">expensive, weeks to set up</span></td></tr>
+    <tr><td><b><span class="ru">Смарт-контракты</span><span class="en">Smart contracts</span></b></td><td><span class="ru">trustless (Kleros)</span><span class="en">trustless (Kleros)</span></td><td class="price"><span class="ru">газ + арбитраж</span><span class="en">gas + arbitration</span></td><td><span class="ru">нет отыгрыша спора, газ убивает мелочь, UX</span><span class="en">no recourse, gas kills small deals, UX</span></td></tr>
+  </table>
+  <div class="note" style="margin-top:18px">
+    <b><span class="ru">Математика — почему мы можем быть дешевле.</span><span class="en">The math — why we can be cheaper.</span></b>
+    <span class="ru"> На одной комиссии escrow не выживает: на средней сделке картой платёжный рельс (~3%) съедает всю комиссию целиком — именно поэтому Payoneer закрыл свой escrow в 2018 («тонкая маржа, нужен масштаб»). Мы строим на дешёвых рельсах — стейбл/крипта и банк почти без издержек и без chargeback. Эту экономию возвращаем тебе скидкой за оплату в стейбле: дешевле для клиента, устойчивее для нас.</span>
+    <span class="en"> Escrow doesn't survive on fees alone: on a mid-size card deal the payment rail (~3%) eats the entire fee — which is exactly why Payoneer shut its escrow in 2018 ("thin margins, needs scale"). We build on cheap rails — stablecoin/crypto and bank, near-zero cost and no chargebacks. We hand that saving back as a stablecoin-payment discount: cheaper for the client, more sustainable for us.</span>
+  </div>
 </div></section>
 
 <!-- TEMPLATES -->
@@ -207,13 +228,17 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
 </div></section>
 
 <!-- CTA -->
-<section id="waitlist"><div class="wrap" style="text-align:center">
-  <h2><span class="ru">Запустить первую сделку</span><span class="en">Run your first deal</span></h2>
-  <p class="lead" style="margin:10px auto 0"><span class="ru">Расскажите о сделке — соберём защищённый escrow под неё. Первые сделки ведём лично.</span><span class="en">Tell us about the deal — we'll set up a protected escrow for it. First deals handled personally.</span></p>
-  <div class="cta" style="justify-content:center">
-    <a class="btn p" href="https://t.me/Posbitcoin"><span class="ru">Написать в Telegram</span><span class="en">Message on Telegram</span></a>
-    <a class="btn s" href="mailto:dima@vda.vc">dima@vda.vc</a>
-  </div>
+<section id="waitlist"><div class="wrap" style="text-align:center;max-width:600px">
+  <h2><span class="ru">В лист ожидания — запустить сделку</span><span class="en">Join the waitlist — run a deal</span></h2>
+  <p class="lead" style="margin:10px auto 18px"><span class="ru">Опишите сделку — соберём защищённый escrow под неё. Первые сделки ведём лично.</span><span class="en">Describe the deal — we'll set up a protected escrow for it. First deals handled personally.</span></p>
+  <form onsubmit="return sendDeal(event)" style="display:grid;gap:10px;text-align:left">
+    <input id="f_name" required style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
+    <input id="f_contact" required style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
+    <input id="f_deal" style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--txt);font-size:15px">
+    <button class="btn p" type="submit"><span class="ru">В лист ожидания</span><span class="en">Join the waitlist</span></button>
+  </form>
+  <p style="color:var(--mut);font-size:13px;margin-top:16px"><span class="ru">Гарант — <b>Дмитрий</b>: 10+ лет в крипто-расчётах и кросс-бордере, экс-CEO криптобиржи. Имя и репутация — то, чего безликий сервис дать не может.</span><span class="en">Guarantor — <b>Dmitrii</b>: 10+ years in crypto settlements & cross-border, ex-crypto-exchange CEO. Name and reputation — what a faceless service can't offer.</span></p>
+  <p style="font-size:12px;color:var(--mut);margin-top:8px"><span class="ru">или напрямую:</span><span class="en">or directly:</span> <a href="https://t.me/Posbitcoin">Telegram</a> · <a href="mailto:dima@vda.vc">dima@vda.vc</a></p>
 </div></section>
 
 <footer><div class="wrap">
@@ -222,12 +247,31 @@ body.lang-en .step p.en,body.lang-en td .en{display:inline}
 </div></footer>
 
 <script>
+var PH={
+  ru:{name:'Ваше имя',contact:'Telegram / email',deal:'Кратко о сделке (сумма, что покупаете/продаёте)'},
+  en:{name:'Your name',contact:'Telegram / email',deal:'About the deal (amount, what you buy/sell)'}
+};
+function applyPH(l){
+  document.getElementById('f_name').placeholder=PH[l].name;
+  document.getElementById('f_contact').placeholder=PH[l].contact;
+  document.getElementById('f_deal').placeholder=PH[l].deal;
+}
 function setLang(l){
   document.body.className='lang-'+l;
   document.documentElement.lang=l;
   document.getElementById('bru').classList.toggle('on',l==='ru');
   document.getElementById('ben').classList.toggle('on',l==='en');
+  applyPH(l);
 }
+function sendDeal(e){
+  e.preventDefault();
+  var n=document.getElementById('f_name').value,c=document.getElementById('f_contact').value,d=document.getElementById('f_deal').value;
+  var subj=encodeURIComponent('Заявка escrow / Escrow request — '+n);
+  var body=encodeURIComponent('Имя / Name: '+n+'\nКонтакт / Contact: '+c+'\nСделка / Deal: '+d);
+  window.location.href='mailto:dima@vda.vc?subject='+subj+'&body='+body;
+  return false;
+}
+applyPH('ru');
 </script>
 </body>
 </html>
