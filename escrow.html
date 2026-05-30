@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Escrow — гарант сделок · Dmitrii</title>
+<meta name="description" content="AI-escrow: гарант сделок и решение споров для IT, малого бизнеса и международной торговли. Понятные тарифы и шаблоны.">
+<style>
+:root{
+  --bg:#0b0e14; --panel:#121722; --panel2:#161c2a; --line:#222b3d;
+  --txt:#e8edf6; --mut:#93a1b9; --acc:#3ea6ff; --acc2:#34d399; --warn:#fbbf24; --bad:#f87171;
+  --radius:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+a{color:var(--acc);text-decoration:none}
+/* topbar */
+.top{position:sticky;top:0;z-index:50;background:rgba(11,14,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{font-weight:700;letter-spacing:.2px}
+.brand b{color:var(--acc)}
+.lang{display:flex;gap:6px}
+.lang button{background:transparent;border:1px solid var(--line);color:var(--mut);padding:5px 11px;border-radius:9px;cursor:pointer;font-size:13px;font-weight:600}
+.lang button.on{background:var(--acc);color:#06121f;border-color:var(--acc)}
+/* hero */
+.hero{padding:64px 0 40px;text-align:center}
+.kicker{display:inline-block;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--acc2);border:1px solid var(--line);padding:6px 13px;border-radius:999px;margin-bottom:22px}
+h1{font-size:clamp(28px,5vw,46px);line-height:1.1;font-weight:800;letter-spacing:-.5px}
+h1 .g{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--mut);font-size:clamp(16px,2.4vw,20px);max-width:680px;margin:18px auto 0}
+.cta{display:inline-flex;gap:12px;margin-top:30px;flex-wrap:wrap;justify-content:center}
+.btn{padding:13px 24px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;border:1px solid var(--line);display:inline-block}
+.btn.p{background:linear-gradient(90deg,var(--acc),#2b7fd4);color:#06121f;border:none}
+.btn.s{background:var(--panel);color:var(--txt)}
+/* sections */
+section{padding:44px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(22px,3.4vw,30px);font-weight:800;letter-spacing:-.3px;margin-bottom:8px}
+.lead{color:var(--mut);max-width:680px;margin-bottom:26px}
+/* stat band */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.stat .n{font-size:clamp(24px,4vw,34px);font-weight:800;color:var(--warn)}
+.stat .l{color:var(--mut);font-size:13px;margin-top:6px}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.step .i{width:34px;height:34px;border-radius:9px;background:var(--panel2);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--acc);margin-bottom:10px;border:1px solid var(--line)}
+.step h4{font-size:15px;margin-bottom:5px}
+.step p{color:var(--mut);font-size:13.5px}
+/* table */
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--panel2);color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+tr:last-child td{border-bottom:none}
+.price{color:var(--acc2);font-weight:700;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:6px;background:var(--panel2);border:1px solid var(--line);color:var(--mut)}
+.bad{color:var(--bad)}.good{color:var(--acc2)}
+/* cards */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.card h3{font-size:16px;margin-bottom:10px}
+.card ul{list-style:none}
+.card li{padding:7px 0 7px 22px;position:relative;color:var(--mut);font-size:14px;border-bottom:1px solid rgba(255,255,255,.04)}
+.card li:last-child{border:none}
+.card li:before{content:"›";position:absolute;left:4px;color:var(--acc);font-weight:800}
+.card li.win:before{content:"✓";color:var(--acc2)}
+.card li.die:before{content:"✕";color:var(--bad)}
+.note{background:linear-gradient(180deg,rgba(62,166,255,.08),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:20px;color:var(--mut)}
+.note b{color:var(--txt)}
+footer{padding:36px 0;border-top:1px solid var(--line);color:var(--mut);font-size:13px;text-align:center}
+/* lang toggle */
+.en{display:none}
+body.lang-en .ru{display:none}
+body.lang-en .en{display:inline}
+body.lang-en li.en,body.lang-en p.en,body.lang-en div.en,body.lang-en span.en{display:block}
+body.lang-en .step p.en,body.lang-en td .en{display:inline}
+@media(max-width:760px){
+  .stats{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .grid2{grid-template-columns:1fr}
+  table{font-size:13px}
+  th,td{padding:9px 10px}
+}
+</style>
+</head>
+<body class="lang-ru">
+
+<div class="top"><div class="wrap">
+  <div class="brand">vda<b>.vc</b> · <span class="ru">AI-Гарант сделок</span><span class="en">AI Deal Escrow</span></div>
+  <div class="lang">
+    <button id="bru" class="on" onclick="setLang('ru')">RU</button>
+    <button id="ben" onclick="setLang('en')">EN</button>
+  </div>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <span class="kicker"><span class="ru">Медиатор · Гарант · Решение споров</span><span class="en">Mediator · Guarantor · Dispute resolution</span></span>
+  <h1>
+    <span class="ru">Кто платит <span class="g">первым</span>? Теперь — никто не рискует.</span>
+    <span class="en">Who pays <span class="g">first</span>? Now — nobody takes the risk.</span>
+  </h1>
+  <p class="sub">
+    <span class="ru">AI-escrow держит деньги и расщепляет сделку на этапы, пока стороны не доверяют друг другу. 95% сделок проходят сами — как в приложении такси. Сложное и спорное берёт на себя именной гарант.</span>
+    <span class="en">AI-escrow holds the funds and splits the deal into milestones while the parties don't trust each other yet. 95% of deals run themselves — like a ride-hailing app. The hard and disputed 5% is handled by a named guarantor.</span>
+  </p>
+  <div class="cta">
+    <a class="btn p" href="#waitlist"><span class="ru">В лист ожидания</span><span class="en">Join the waitlist</span></a>
+    <a class="btn s" href="#how"><span class="ru">Как это работает</span><span class="en">How it works</span></a>
+  </div>
+</div></header>
+
+<!-- PROBLEM -->
+<section id="problem"><div class="wrap">
+  <h2><span class="ru">Проблема: предоплата = рулетка</span><span class="en">The problem: prepayment = roulette</span></h2>
+  <p class="lead"><span class="ru">Для IT и фриланса, малого бизнеса и международной торговли. Цифры, которые мы закрываем:</span><span class="en">For IT & freelance, small business and cross-border trade. The numbers we close:</span></p>
+  <div class="stats">
+    <div class="stat"><div class="n">~6%</div><div class="l"><span class="ru">покупателей вообще когда-либо платили через escrow — гигантский разрыв</span><span class="en">of buyers have ever used escrow — a huge adoption gap</span></div></div>
+    <div class="stat"><div class="n">$2.8B</div><div class="l"><span class="ru">потерь от платёжного фрода (BEC) за 2024 — ФБР IC3</span><span class="en">lost to payment (BEC) fraud in 2024 — FBI IC3</span></div></div>
+    <div class="stat"><div class="n">89%</div><div class="l"><span class="ru">China-скамов требуют оплату ВНЕ любого защищённого рельса</span><span class="en">of China scams demand payment OUTSIDE any protected rail</span></div></div>
+    <div class="stat"><div class="n">&gt;50%</div><div class="l"><span class="ru">фрилансеров хоть раз не получили оплату за работу</span><span class="en">of freelancers have been stiffed at least once</span></div></div>
+  </div>
+  <p class="lead" style="margin-top:22px">
+    <span class="ru">При этом существующий escrow раздражает: Escrow.com — 2.9★ (деньги виснут неделями, KYC по частям), Tazapay прячет FX и держит резервы, смарт-контракты — «если оракул соврал, отыграть нельзя» и газ убивает мелкие сделки. Малый бизнес и СНГ вообще не берут (Escrow.com и Tazapay прямо блокируют RU/Беларусь).</span>
+    <span class="en">Meanwhile existing escrow frustrates: Escrow.com — 2.9★ (funds frozen for weeks, KYC dragged out), Tazapay hides FX and holds reserves, smart contracts mean "if the oracle lies there's no recourse" and gas kills small deals. Small business and CIS are simply turned away (Escrow.com and Tazapay explicitly block RU/Belarus).</span>
+  </p>
+</div></section>
+
+<!-- HOW -->
+<section id="how"><div class="wrap">
+  <h2><span class="ru">Как это работает — «Убер для сделок»</span><span class="en">How it works — "Uber for deals"</span></h2>
+  <p class="lead"><span class="ru">7 шагов в приложении, 95% — без человека:</span><span class="en">7 steps in the app, 95% — no human:</span></p>
+  <div class="steps">
+    <div class="step"><div class="i">1</div><h4><span class="ru">Шаблон сделки</span><span class="en">Deal template</span></h4><p><span class="ru">Выбираешь тип → AI заполняет договор за минуту.</span><span class="en">Pick a type → AI fills the contract in a minute.</span></p></div>
+    <div class="step"><div class="i">2</div><h4><span class="ru">Приглашение</span><span class="en">Invite</span></h4><p><span class="ru">Вторая сторона входит по ссылке, обе принимают условия.</span><span class="en">The other side joins by link, both accept terms.</span></p></div>
+    <div class="step"><div class="i">3</div><h4><span class="ru">Авто-KYC</span><span class="en">Auto-KYC</span></h4><p><span class="ru">Проверка личности за ~20 сек (Sumsub/Onfido).</span><span class="en">Identity check in ~20s (Sumsub/Onfido).</span></p></div>
+    <div class="step"><div class="i">4</div><h4><span class="ru">Фандинг</span><span class="en">Funding</span></h4><p><span class="ru">Карта / банк / крипта (USDC). Деньги под защитой.</span><span class="en">Card / bank / crypto (USDC). Funds secured.</span></p></div>
+    <div class="step"><div class="i">5</div><h4><span class="ru">Этапы + пруфы</span><span class="en">Milestones + proofs</span></h4><p><span class="ru">Трек перевозчика, B/L, GitHub-релиз, e-подпись.</span><span class="en">Carrier tracking, B/L, GitHub release, e-signature.</span></p></div>
+    <div class="step"><div class="i">6</div><h4><span class="ru">Авто-релиз</span><span class="en">Auto-release</span></h4><p><span class="ru">Этап подтверждён → деньги уходят автоматически.</span><span class="en">Milestone confirmed → funds released automatically.</span></p></div>
+    <div class="step"><div class="i">7</div><h4><span class="ru">Кнопка спора</span><span class="en">Dispute button</span></h4><p><span class="ru">AI собирает доказательства → арбитраж/гарант решает.</span><span class="en">AI assembles evidence → arbitration/guarantor decides.</span></p></div>
+  </div>
+  <div class="note" style="margin-top:18px">
+    <b><span class="ru">Медиатор + решение споров.</span><span class="en">Mediator + dispute resolution.</span></b>
+    <span class="ru"> «Кто первый платит» — главный страх любой сделки. Мы становимся между сторонами: деньги уже у гаранта, релиз — только по факту этапа. Спор? AI собирает пакет (переписка, отгрузка, таймстемпы), решает именная панель или децентрализованный арбитраж (Kleros) для крипто-сделок. Имя и репутация — то, чего безликий сервис дать не может.</span>
+    <span class="en"> "Who pays first" is the core fear of any deal. We sit between the parties: the money is already with the guarantor, release happens only on a verified milestone. Dispute? AI assembles the packet (chat, shipment, timestamps), and a named panel or decentralized arbitration (Kleros for crypto deals) decides. The name and reputation are exactly what a faceless service can't offer.</span>
+  </div>
+</div></section>
+
+<!-- TARIFFS -->
+<section id="tariffs"><div class="wrap">
+  <h2><span class="ru">Понятные тарифы</span><span class="en">Transparent pricing</span></h2>
+  <p class="lead"><span class="ru">Никаких «по запросу». Мелким сделкам — флэт, крупным — низкий %, сложным — именной гарант.</span><span class="en">No "contact us". Flat for small deals, low % for large, named guarantor for complex.</span></p>
+  <table>
+    <tr><th><span class="ru">Тариф</span><span class="en">Plan</span></th><th><span class="ru">Для кого</span><span class="en">For</span></th><th><span class="ru">Цена</span><span class="en">Price</span></th></tr>
+    <tr><td><b>Lite</b></td><td><span class="ru">сделки до $1 000</span><span class="en">deals up to $1,000</span></td><td class="price">$19–29 <span class="ru">за сделку</span><span class="en">/ deal</span></td></tr>
+    <tr><td><b>Standard</b></td><td>$1k–$25k</td><td class="price">2.5% → 1.5%</td></tr>
+    <tr><td><b>Pro</b></td><td>$25k+</td><td class="price">1.0% (min $250)</td></tr>
+    <tr><td><b>Concierge</b><br><span class="tag"><span class="ru">именной гарант</span><span class="en">named guarantor</span></span></td><td><span class="ru">сложные, низкое доверие</span><span class="en">complex, low-trust</span></td><td class="price">+1–2%</td></tr>
+    <tr><td><b>Subscription</b></td><td><span class="ru">повторяющиеся (агентства, импортёры)</span><span class="en">recurring (agencies, importers)</span></td><td class="price">$99 / <span class="ru">мес</span><span class="en">mo</span></td></tr>
+  </table>
+  <p class="lead" style="margin-top:14px;font-size:13.5px"><span class="ru">Рынок берёт 0.89–3.25% и до 5%/сторона (Upwork). Наш диапазон 1–3% + флэт на мелочь — дешевле и прозрачнее.</span><span class="en">The market charges 0.89–3.25% and up to 5%/side (Upwork). Our 1–3% + flat-for-small is cheaper and clearer.</span></p>
+</div></section>
+
+<!-- TEMPLATES -->
+<section id="templates"><div class="wrap">
+  <h2><span class="ru">Готовые шаблоны сделок</span><span class="en">Ready-made deal templates</span></h2>
+  <div class="grid2">
+    <div class="card"><h3><span class="ru">Фриланс / IT (50% аванс)</span><span class="en">Freelance / IT (50% upfront)</span></h3><ul>
+      <li><span class="ru">50/50 или 30/30/40 (депозит / черновик / финал)</span><span class="en">50/50 or 30/30/40 (deposit / draft / final)</span></li>
+      <li><span class="ru">критерии приёмки + окно ревью 5 дней (молчание = принято)</span><span class="en">acceptance criteria + 5-day review window (silence = accepted)</span></li>
+    </ul></div>
+    <div class="card"><h3><span class="ru">Импорт из Китая</span><span class="en">China import</span></h3><ul>
+      <li><span class="ru">30% депозит → 60% после предотгрузочной инспекции → 10% по получению</span><span class="en">30% deposit → 60% after pre-shipment inspection → 10% on receipt</span></li>
+      <li><span class="ru">деньги держим до подтверждения качества</span><span class="en">funds held until quality is confirmed</span></li>
+    </ul></div>
+    <div class="card"><h3><span class="ru">OTC-крипта (DvP)</span><span class="en">OTC crypto (DvP)</span></h3><ul>
+      <li><span class="ru">обе ноги в escrow → проверка → одновременный релиз (минуты)</span><span class="en">both legs in escrow → verify → simultaneous release (minutes)</span></li>
+    </ul></div>
+    <div class="card"><h3><span class="ru">B2B-услуга (SOW)</span><span class="en">B2B service (SOW)</span></h3><ul>
+      <li><span class="ru">этапы по SLA/KPI, лестница медиация → арбитраж</span><span class="en">milestones by SLA/KPI, mediation → arbitration ladder</span></li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- WHY STARTUPS -->
+<section id="startups"><div class="wrap">
+  <h2><span class="ru">Почему escrow-стартапы не взлетали — и что выстрелило</span><span class="en">Why escrow startups failed — and what worked</span></h2>
+  <div class="grid2">
+    <div class="card"><h3 class="bad"><span class="ru">✕ Не пошли</span><span class="en">✕ Didn't make it</span></h3><ul>
+      <li class="die"><b>OpenBazaar</b> — <span class="ru">P2P-маркет с BTC-escrow без комиссии: нет выручки, нет роста, закрылся (2021)</span><span class="en">P2P market with fee-free BTC escrow: no revenue, no growth, shut down (2021)</span></li>
+      <li class="die"><b>Payoneer Escrow</b> (Armor Payments) — <span class="ru">закрыли через 2 года: «тонкая маржа, нужен масштаб»</span><span class="en">closed after 2 years: "thin margins, needs scale"</span></li>
+      <li class="die"><b>Reali</b> — <span class="ru">deal-инфра рухнула без объёма сделок ($100M сожжено)</span><span class="en">deal-infra collapsed without volume ($100M burned)</span></li>
+      <li class="die"><span class="ru">Безымянные крипто-escrow</span><span class="en">Generic crypto escrows</span> — <span class="ru">«зачем доверять неизвестному посреднику больше, чем контрагенту?»</span><span class="en">"why trust an unknown middleman more than the counterparty?"</span></li>
+    </ul></div>
+    <div class="card"><h3 class="good"><span class="ru">✓ Выстрелило</span><span class="en">✓ What worked</span></h3><ul>
+      <li class="win"><b>Alibaba Trade Assurance</b> — <span class="ru">встроен в маркетплейс, escrow = «просто как платят»</span><span class="en">embedded in the marketplace, escrow = "just how you pay"</span></li>
+      <li class="win"><b>Upwork / Fiverr</b> — <span class="ru">обязательная сантехника платформы, никто его не «выбирает»</span><span class="en">mandatory platform plumbing, nobody "chooses" it</span></li>
+      <li class="win"><b>Escrow.com</b> — <span class="ru">захватил нишу (домены), $8B оборота</span><span class="en">owned a niche (domains), $8B volume</span></li>
+      <li class="win"><b>Shieldpay / XREX</b> — <span class="ru">регулируемое крупное / реальная боль коридора (£18B / $200M)</span><span class="en">regulated high-value / real corridor pain (£18B / $200M)</span></li>
+    </ul></div>
+  </div>
+  <div class="note" style="margin-top:18px">
+    <b><span class="ru">Закономерность.</span><span class="en">The pattern.</span></b>
+    <span class="ru"> Standalone-escrow дохнет на «курице-яйце» (обе стороны должны сами его выбрать) и тонкой марже. Выживает тот, у кого УЖЕ есть поток сделок и доверие. У нас это есть: сеть (поток сделок RU↔Китай, фриланс, OTC) + банковская инфраструктура и лицензии партнёра + именной гарант с репутацией. Escrow для нас — функция поверх потока, а не отдельный продукт, который надо «продавать» двум незнакомцам.</span>
+    <span class="en"> Standalone escrow dies on chicken-and-egg (both sides must independently choose it) and thin margins. The winner already HAS deal-flow and trust. We do: a network (RU↔China, freelance, OTC deal-flow) + a partner's banking infrastructure and licenses + a named guarantor with reputation. For us escrow is a feature on top of the flow, not a separate product two strangers must be "sold".</span>
+  </div>
+</div></section>
+
+<!-- CTA -->
+<section id="waitlist"><div class="wrap" style="text-align:center">
+  <h2><span class="ru">Запустить первую сделку</span><span class="en">Run your first deal</span></h2>
+  <p class="lead" style="margin:10px auto 0"><span class="ru">Расскажите о сделке — соберём защищённый escrow под неё. Первые сделки ведём лично.</span><span class="en">Tell us about the deal — we'll set up a protected escrow for it. First deals handled personally.</span></p>
+  <div class="cta" style="justify-content:center">
+    <a class="btn p" href="https://t.me/Posbitcoin"><span class="ru">Написать в Telegram</span><span class="en">Message on Telegram</span></a>
+    <a class="btn s" href="mailto:dima@vda.vc">dima@vda.vc</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span class="ru">© 2026 vda.vc · AI-Гарант сделок. Данные: FBI IC3, ICC, Trustpilot/Sitejabber, Gatech ISR, рыночные отчёты 2024–2026.</span>
+  <span class="en">© 2026 vda.vc · AI Deal Escrow. Data: FBI IC3, ICC, Trustpilot/Sitejabber, Gatech ISR, 2024–2026 market reports.</span>
+</div></footer>
+
+<script>
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.documentElement.lang=l;
+  document.getElementById('bru').classList.toggle('on',l==='ru');
+  document.getElementById('ben').classList.toggle('on',l==='en');
+}
+</script>
+</body>
+</html>
